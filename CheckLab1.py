@@ -4,6 +4,26 @@
 Name: CheckLab1.py
 Author: Andrew Oatley-Willis
 Date: November 2, 2016
+Updated by: Raymond Chan
+Date: September 5, 2019
+
+Updated: Septemeber 25, 2019 by Raymond Chan
+Reason: (1) package name changes: python36 --> python3
+                                  python36-pip --> python3-pip
+            for centos 7.7.1908 
+        (2) add report header with user and system information
+
+Updated: May 7, 2020 by Raymond Chan
+Reason: (0) merging lab0 and lab1 into lab 1 for online delivery
+        (1) check lab task done on matrix.senecacollege.ca 
+        (2) check directory structure for labs and assignments
+        (3) lab0a - check git hub repository
+        (4) lab0b - check gitlog.txt and repo_tree.txt
+        (5) lab0c - check directory structure for labs and assgs
+        (6) lab1a - check lab1a.py script
+        (7) lab1b - check lab1b.py script
+        (8) lab1c - check lab1c.py script
+        (9) lab1d - check lab1d.py script
 
 Usage:
 Check all sections for the labs
@@ -12,7 +32,7 @@ Check a specific lab section
 ./CheckLab1-1 -f -v lab1x 
 
 Description:
-This script is used to give students more feedback, progress, and
+This script is used to give students feedback, progress, and
 assistance while working on labs. Labs and this script should be 
 in the same directory. Labs must use the correct naming scheme for
 each file(eg. lab1a.py, lab1b.py, ...).
@@ -26,107 +46,58 @@ import sys
 import os
 import hashlib
 import urllib.request
-import socket 
-    
+import socket
+import time 
+
 class lab0a(unittest.TestCase):
-    """All test cases for lab0a - making sure the install has correct configuration"""
-    
+    """All test cases for lab0a - clone of github repository."""
+    @unittest.skip
     def test_a(self):
-        """[Lab 1] - [Investigation 1] - [Part 1] - installing linux - supported linux distribution"""
-        # dist, release, version = platform.linux_distribution() # Deprecated in python
-        # Suggested to use the os-release file for distribution version
-        try:
-            f = open('/etc/os-release', 'r')
-            dat = f.readlines()
-            f.close()
-            dist = dat[2][3:].strip().strip('"') # Grab the standard location for dist id
-        except:
-            dist = 'unknown'
-        error_output = 'your system must be centos'
-        self.assertEqual(dist, 'centos', msg=error_output)
+        """[Lab 1] - [Investigation 1] - [Task 1] - github repository - Test for git clone"""
+        student_id = os.getlogin() 
+        dirs_required = ['~/ops435/lab1/'+student_id]
+        dirs_exist = True
+        for d in dirs_required:
+            if not os.path.isdir(os.path.expanduser(d)):
+                dirs_exist = False
+        error_output = 'your local git close directory cannot be found(HINT: make sure you have clone your github repository under the correct directory)',dirs_required
+        self.assertTrue(dirs_exist, msg=error_output)
+
+    def test_b0(self):
+        """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: gitlog.txt"""
+        files_required = ['~/ops435/lab1/gitlog.txt']
+        files_exist = True
+        for f in files_required:
+            if not os.path.isfile(os.path.expanduser(f)):
+                files_exist = False
+        error_output = 'files for your github repo details cannot be found(HINT: make sure you have run git log and redirect their output to the appropriate file)',files_required
+        self.assertTrue(files_exist, msg=error_output) 
     
-    def test_b(self):
-        """[Lab 1] - [Investigation 1] - [Part 1] - installing linux - disk/partition sizes"""
-        self.assertEqual(1, 1, msg='place holder')
-    
-    def test_c(self):
-        """[Lab 1] - [Investigation 1] - [Part 1] - installing linux - correct hostname"""
-        hostname = socket.gethostname()
-        self.assertEqual(hostname, 'centos7', msg='place holder')
+    def test_b1(self):
+        """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: repo_tree.txt"""
+        files_required = ['~/ops435/lab1/repo_tree.txt']
+        files_exist = True
+        for f in files_required:
+            if not os.path.isfile(os.path.expanduser(f)):
+                files_exist = False
+        error_output = 'files for your github repo details cannot be found(HINT: make sure you have run tree -a and redirect their output to the appropriate file)',files_required    
+        self.assertTrue(files_exist, msg=error_output)
 
 class lab0b(unittest.TestCase):
-    """All test cases for lab0b - installing software"""
-
-    def test_a(self):
-        """[Lab 1] - [Investigation 1] - [Part 2] - additional software - software packages installed"""
-        #import rpm
-        # Create objects to make a rpm query
-        #transaction = rpm.TransactionSet()
-        #match = transaction.dbMatch()
-        p = subprocess.Popen(['/usr/bin/rpm', '-qa', '--qf', '%{NAME}\n'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, err = p.communicate()
-        match = stdout.decode('utf-8').split()
-
-        # List of packages to check if installed
-        packages = ['python34', 'python', 'screen', 'tmux', 'vim-common', 'vim-enhanced', 'python2-pip', 'python34-pip', 'python-ipython'] 
-        installedpackages = []
-        # Compare all installed rpms with above list
-        for package in match:
-            # rpm returns bytes instead of characters, decode them to strings
-            #name = package['name'].decode('UTF-8')
-            name = package
-            #version = package['version'].decode('UTF-8')
-            #release = package['release'].decode('UTF-8')
-            if name in packages:
-                installedpackages.append(name)
-        # Find missing packages from packages list
-        diff = list(set(packages).symmetric_difference(installedpackages))
-        error_output = 'your system may be missing software required to move to the next step', diff
-        self.assertEqual(diff, [], msg=error_output)
-        
-        
-        
-    def test_b(self):
-        """[Lab 1] - [Investigation 1] - [Part 2] - additional software - pip install software"""
-        p = subprocess.Popen(['pip3', 'list'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, err = p.communicate()
-        match = stdout.decode('utf-8').split('\n')
-
-        # List of packages to check if installed
-        packages = ['ipython']
-        installedpackages = []
-        for package in match:
-            # Extract package name and delete extra items
-            packagename = package.split() 
-            if packagename != []:
-                if packagename[0] in packages:
-                    installedpackages.append(packagename[0])
-        # Find missing packages from packages list
-        diff = list(set(packages).symmetric_difference(installedpackages))
-        error_output = 'your system may be missing software required to move to the next step', diff
-        self.assertEqual(diff, [], msg=error_output)
-    
-    def test_c(self):
-        """[Lab 1] - [Investigation 1] - [Part 3] - additional software - all text editors installed"""
-        self.assertEqual(1, 1, msg='not currently requiring all text editors to be installed')
-
-class lab0c(unittest.TestCase):
-    """All test cases for lab0c - ipython alias and confirguration"""
-    
-    def test_b(self):
-        """[Lab 1] - [Investigation 2] - [Part 1] - ipython - ipython configuration"""
-        self.assertEqual(1, 1, msg='place holder')
+    """All test cases for lab0c - Directory structure."""
     
     def test_c(self):
         """[Lab 1] - [Investigation 2] - [Part 1] - directories - Test for directory structure creation"""
         dirs_required = ['~/ops435/lab1', 
-                                '~/ops435/lab2',
-                                '~/ops435/lab3',
-                                '~/ops435/lab4',
-                                '~/ops435/lab5',
-                                '~/ops435/lab6',
-                                '~/ops435/lab7',
-                                '~/ops435/lab8']
+                         '~/ops435/lab2',
+                         '~/ops435/lab3',
+                         '~/ops435/lab4',
+                         '~/ops435/lab5',
+                         '~/ops435/lab6',
+                         '~/ops435/lab7',
+                         '~/ops435/lab8',
+                         '~/ops435/a1',
+                         '~/ops435/a2' ]
         dirs_exist = True
         for d in dirs_required:
             if not os.path.isdir(os.path.expanduser(d)):
@@ -174,15 +145,15 @@ class lab1a(unittest.TestCase):
         self.assertEqual(stdout, expected_output, msg=error_output)
     
 class lab1b(unittest.TestCase):
-    """All test cases for lab1b - variables & printing"""
+    """All test cases for lab1b - string objects & printing"""
    
     def test_0(self):
-        """[Lab 1] - [Investigation 3] - [Part 3] - variables & printing - Test for file creation: ./lab1b.py"""
+        """[Lab 1] - [Investigation 4] - string objects & printing - Test for file creation: ./lab1b.py"""
         error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue( os.path.exists('./lab1b.py'), msg=error_output)
 
     def test_a(self):
-        """[Lab 1] - [Investigation 3] - [Part 3] - variables & printing - Test for errors running: ./lab1b.py"""
+        """[Lab 1] - [Investigation 4] - string objects & printing - Test for errors running: ./lab1b.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
@@ -192,7 +163,7 @@ class lab1b(unittest.TestCase):
         self.assertEqual(return_code, 0, msg=error_output)
     
     def test_a1(self):
-        """[Lab 1] - [Investigation 3] - [Part 3] - variables & printing - Test for correct shebang line: ./lab1b.py"""
+        """[Lab 1] - [Investigation 4] - string objects & printing - Test for correct shebang line: ./lab1b.py"""
         lab_file = open('./lab1b.py')
         first_line = lab_file.readline()
         lab_file.close()
@@ -200,7 +171,7 @@ class lab1b(unittest.TestCase):
         self.assertEqual(first_line, '#!/usr/bin/env python3\n', msg=error_output)
 
     def test_b(self):
-        """[Lab 1] - [Investigation 3] - [Part 3] - variables & printing - Test for correct output "How old are you Isaac?": ./lab1b.py"""
+        """[Lab 1] - [Investigation 4] - string objects & printing - Test for correct output "How old are you Isaac?": ./lab1b.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, _ = p.communicate()
@@ -211,15 +182,15 @@ class lab1b(unittest.TestCase):
     
 
 class lab1c(unittest.TestCase):
-    """All test cases for lab1c - variables & printing"""
+    """All test cases for lab1c - integer objects & printing"""
     
     def test_0(self):
-        """[Lab 1] - [Investigation 3] - [Part 4] - variables & printing - Test for file creation: ./lab1c.py"""
+        """[Lab 1] - [Investigation 4] - integer objects & printing - Test for file creation: ./lab1c.py"""
         error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue( os.path.exists('./lab1c.py'), msg=error_output)
 
     def test_a(self):
-        """[Lab 1] - [Investigation 3] - [Part 4] - variables & printing - Test for errors running: ./lab1c.py"""
+        """[Lab 1] - [Investigation 4] - integer objects & printing - Test for errors running: ./lab1c.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
@@ -229,7 +200,7 @@ class lab1c(unittest.TestCase):
         self.assertEqual(return_code, 0, msg=error_output)
     
     def test_a1(self):
-        """[Lab 1] - [Investigation 3] - [Part 4] - variables & printing - Test for correct shebang line: ./lab1c.py"""
+        """[Lab 1] - [Investigation 4] - integer objects & printing - Test for correct shebang line: ./lab1c.py"""
         lab_file = open('./lab1c.py')
         first_line = lab_file.readline()
         lab_file.close()
@@ -237,7 +208,7 @@ class lab1c(unittest.TestCase):
         self.assertEqual(first_line, '#!/usr/bin/env python3\n', msg=error_output)
 
     def test_b(self):
-        """[Lab 1] - [Investigation 3] - [Part 4] - variables & printing - Test output for correct output "Isaac is 72 years old!": ./lab1c.py"""
+        """[Lab 1] - [Investigation 4] - integer objects & printing - Test output for correct output "Isaac is 72 years old!": ./lab1c.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, _ = p.communicate()
@@ -250,12 +221,12 @@ class lab1d(unittest.TestCase):
     """All test cases for lab1d - Math Operators"""
     
     def test_0(self):
-        """[Lab 1] - [Investigation 3] - [Part 5] - math operators - Test for file creation: ./lab1d.py"""
+        """[Lab 1] - [Investigation 5] - math operators - Test for file creation: ./lab1d.py"""
         error_output = 'your file cannot be found(HINT: make sure you AND your file are in the correct directory)'
         self.assertTrue( os.path.exists('./lab1d.py'), msg=error_output)
 
     def test_a(self):
-        """[Lab 1] - [Investigation 3] - [Part 5] - math operators - Test for errors running: ./lab1d.py"""
+        """[Lab 1] - [Investigation 5] - math operators - Test for errors running: ./lab1d.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1d.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
@@ -265,7 +236,7 @@ class lab1d(unittest.TestCase):
         self.assertEqual(return_code, 0, msg=error_output)
     
     def test_a1(self):
-        """[Lab 1] - [Investigation 3] - [Part 5] - math operators - Test for correct shebang line: ./lab1d.py"""
+        """[Lab 1] - [Investigation 5] - math operators - Test for correct shebang line: ./lab1d.py"""
         lab_file = open('./lab1d.py')
         first_line = lab_file.readline()
         lab_file.close()
@@ -273,7 +244,7 @@ class lab1d(unittest.TestCase):
         self.assertEqual(first_line, '#!/usr/bin/env python3\n', msg=error_output)
 
     def test_b(self):
-        """[Lab 1] - [Investigation 3] - [Part 5] - math operators - Test output for correct output "10 + 2 * 5 = 20": ./lab1d.py"""
+        """[Lab 1] - [Investigation 5] - math operators - Test output for correct output "10 + 2 * 5 = 20": ./lab1d.py"""
         # Run students program
         p = subprocess.Popen(['/usr/bin/python3', './lab1d.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, _ = p.communicate()
@@ -308,13 +279,13 @@ def CheckForUpdates():
         lab_name = 'CheckLab1.py'
         lab_num = 'lab1'
         print('Checking for updates...')
-        if ChecksumLatest(url='https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
+        if ChecksumLatest(url='https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
             print()
             print(' There is a update available for this' + lab_name + ' please consider updating:')
             print(' cd ~/ops435/' + lab_num + '/')
             print(' pwd  #   <-- i.e. confirm that you are in the correct directory')
             print(' rm ' + lab_name)
-            print(' ls ' + lab_name + ' || wget https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name)
+            print(' ls ' + lab_name + ' || wget https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name)
             print()
             return
         print('Running latest version...')
@@ -324,23 +295,25 @@ def CheckForUpdates():
         print('No connection made...')
         print('Skipping updates...')
         return
-
+def displayReportHeader():
+    report_heading = 'OPS435 Lab Report - System Information for running '+sys.argv[0]
+    print(report_heading)
+    print(len(report_heading) * '=')
+    print('    User login name:', os.getlogin())
+    print('    Linux system name:', socket.gethostname())
+    print('    Linux system version:',os.popen('cat /etc/redhat-release').read().strip())
+    print('    Python executable:',sys.executable)
+    print('    Python version: ',sys.version_info.major,sys.version_info.minor,sys.version_info.micro,sep='')
+    print('    OS Platform:',sys.platform)
+    print('    Working Directory:',os.getcwd())
+    print('    Start at:',time.asctime())
+    print(len(report_heading) * '=')
+    return
 
 if __name__ == '__main__':
-    CheckForUpdates()
-    wait = input('Press ENTER to run the Lab Check...')
+    #CheckForUpdates()
+    #wait = input('Press ENTER to run the Lab Check...')
+    if len(sys.argv) == 3:
+        x = displayReportHeader()
     unittest.main()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
