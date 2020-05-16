@@ -65,7 +65,7 @@ class lab0a(unittest.TestCase):
 
     def test_b0(self):
         """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: gitlog.txt"""
-        files_required = ['~/ops435/lab1/gitlog.txt']
+        files_required = ['gitlog.txt']
         files_exist = True
         for f in files_required:
             if not os.path.isfile(os.path.expanduser(f)):
@@ -75,7 +75,7 @@ class lab0a(unittest.TestCase):
     
     def test_b1(self):
         """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: repo_tree.txt"""
-        files_required = ['~/ops435/lab1/repo_tree.txt']
+        files_required = ['repo_tree.txt']
         files_exist = True
         for f in files_required:
             if not os.path.isfile(os.path.expanduser(f)):
@@ -86,6 +86,7 @@ class lab0a(unittest.TestCase):
 class lab0b(unittest.TestCase):
     """All test cases for lab0c - Directory structure."""
     
+    @unittest.skip
     def test_c(self):
         """[Lab 1] - [Investigation 2] - [Part 1] - directories - Test for directory structure creation"""
         dirs_required = ['~/ops435/lab1', 
