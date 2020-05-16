@@ -58,6 +58,7 @@ vi ~/ops435/lab1/laboutput.txt
 3. Commit and push (upload) your lab work:
 ```bash
 git add lab*
+git add gitlog.txt repo_tree.txt
 git commit -m "Individual message or note."
 git push
 ```
