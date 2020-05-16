@@ -1,36 +1,24 @@
 # Setup
 ### First-time Setup
-This will setup and configure git and GitHub in your CentOS 7 environment. Run everything as your local user, unless indicated otherwise.
+This will setup and configure git and GitHub on Matrix. Run everything as your local user, unless indicated otherwise.
 
-1. Install git (as root):
-```bash
-su -
-yum install git
-exit
-```
-2. Configure git with your full name and Seneca e-mail address:
+1. Configure git with your full name and Seneca e-mail address:
 ```bash
 git config --global user.name "Firstname Lastname"
 git config --global user.email "yoursenecaid@myseneca.ca"
 ```
-3. Generate an SSH key-pair to add to your GitHub account:
+(optional) You may want to add a key to Github to reduce password prompts. Generate an SSH key-pair to add to your GitHub account:
 ```bash
 ssh-keygen  # Follow defaults (hit enter)
 cat ~/.ssh/id_rsa.pub
 ```
-4. Copy/paste your public key from above (starting from 'ssh-rsa') to your GitHub account:
+Copy/paste your public key from above (starting from 'ssh-rsa') to your GitHub account:
 > https://github.com/settings/ssh/new
 
-5. Rename your exisiting ops435 directory:
+5. If you have an exisiting ops435 directory, rename it:
 ```bash
 mv ~/ops435 ~/old_ops435
 ```
-6. Recreate the directory structure:
-```bash
-for x in {1..8}; do mkdir -p ~/ops435/lab$x; done
-```
-
-
 ### Per-Lab Setup
 This will download Lab 1 locally, allowing you to work on your scripts and upload (push) them back up to GitHub.
 
@@ -38,10 +26,7 @@ This will download Lab 1 locally, allowing you to work on your scripts and uploa
 ```bash
 git clone git@github.com:ops435/lab1-yourgithubusername.git ~/ops435/lab1/
 ```
-2. Copy your backed-up work into your new GitHub-linked directory:
-```bash
-cp ~/old_ops435/lab1/* ~/ops435/lab1/
-```
+Proceed to "Wiki" on this page and complete the lab on Matrix. Return here to submit your lab.
 
 # Submission
 1. Run the checking script. Make sure you identify and correct any and all errors in your scripts:
@@ -58,7 +43,6 @@ vi ~/ops435/lab1/laboutput.txt
 3. Commit and push (upload) your lab work:
 ```bash
 git add lab*
-git add gitlog.txt repo_tree.txt
 git commit -m "Individual message or note."
 git push
 ```
