@@ -33,16 +33,16 @@ Proceed to "Wiki" on this page and complete the lab on Matrix. Return here to su
 ```bash
 cd ~/ops435/lab1/
 pwd #confirm that you are in the right directory
-python3 ./CheckLab1.py -f -v
+python3 ./CheckLab1.py -f -v 
 ```
-2. Paste the checking script output into *laboutput.txt*:
+2. Create laboutput.txt by redirecting the output from CheckLab1.py:
 ```bash
-vi ~/ops435/lab1/laboutput.txt
+python3 ./CheckLab1.py -f -v &> laboutput.txt
 ```
 
 3. Commit and push (upload) your lab work:
 ```bash
-git add lab*
+git add *
 git commit -m "Individual message or note."
 git push
 ```
