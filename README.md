@@ -26,7 +26,7 @@ This will download Lab 1 locally, allowing you to work on your scripts and uploa
 ```bash
 git clone git@github.com:ops435/lab-1-yourgithubusername.git ~/ops435/lab1/
 ```
-Proceed to "Wiki" on this page and complete the lab on Matrix. Return here to submit your lab.
+Complete the steps in "Lab 1 Con'td" posted on Blackboard.
 
 # Submission
 1. Run the checking script. Make sure you identify and correct any and all errors in your scripts:
