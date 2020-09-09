@@ -42,7 +42,7 @@ python3 ./CheckLab1.py -f -v &> laboutput.txt
 
 3. Commit and push (upload) your lab work:
 ```bash
-git add *
+git add lab*
 git commit -m "Individual message or note."
 git push
 ```
