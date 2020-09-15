@@ -26,9 +26,11 @@ This will download Lab 1 locally, allowing you to work on your scripts and uploa
 ```bash
 git clone git@github.com:ops435/lab-1-yourgithubusername.git ~/ops435/lab1/
 ```
-Complete the steps in "Lab 1 Con'td" posted on Blackboard.
+You may continue to **Investigation 2** in the Lab 1 instructions posted on the [Wiki](https://wiki.cdot.senecacollege.ca/wiki/OPS435_Online_Lab1#Investigation_2_-_Python_on_Matrix).
 
 # Submission
+When you have completed all sections of the lab, no submission to Blackboard is necessary. Complete the following steps:
+
 1. Run the checking script. Make sure you identify and correct any and all errors in your scripts:
 ```bash
 cd ~/ops435/lab1/
