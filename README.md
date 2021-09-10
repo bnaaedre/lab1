@@ -15,23 +15,23 @@ cat ~/.ssh/id_rsa.pub
 Copy/paste your public key from above (starting from 'ssh-rsa') to your GitHub account:
 > https://github.com/settings/ssh/new
 
-5. If you have an exisiting ops435 directory, rename it:
+5. If you have an exisiting ops445 directory, rename it:
 ```bash
-mv ~/ops435 ~/old_ops435
+mv ~/ops445 ~/old_ops445
 ```
 ### Per-Lab Setup
 This will download Lab 1 locally, allowing you to work on your scripts and upload (push) them back up to GitHub.
 
-1. Clone your lab repository into your ~/ops435/lab1 directory using SSH:
+1. Clone your lab repository into your ~/ops445/lab1 directory using SSH:
 ```bash
-git clone git@github.com:ops435/lab-1-yourgithubusername.git ~/ops435/lab1/
+git clone git@github.com:ops445/lab-1-yourgithubusername.git ~/ops445/lab1/
 ```
 Complete the steps in "Lab 1 Con'td" posted on Blackboard.
 
 # Submission
 1. Run the checking script. Make sure you identify and correct any and all errors in your scripts:
 ```bash
-cd ~/ops435/lab1/
+cd ~/ops445/lab1/
 pwd #confirm that you are in the right directory
 python3 ./CheckLab1.py -f -v 
 ```

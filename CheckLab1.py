@@ -55,7 +55,7 @@ class lab0a(unittest.TestCase):
     def test_a(self):
         """[Lab 1] - [Investigation 1] - [Task 1] - github repository - Test for git clone"""
         student_id = os.getlogin() 
-        dirs_required = ['~/ops435/lab1/'+student_id]
+        dirs_required = ['~/ops445/lab1/'+student_id]
         dirs_exist = True
         for d in dirs_required:
             if not os.path.isdir(os.path.expanduser(d)):
@@ -63,6 +63,7 @@ class lab0a(unittest.TestCase):
         error_output = 'your local git close directory cannot be found(HINT: make sure you have clone your github repository under the correct directory)',dirs_required
         self.assertTrue(dirs_exist, msg=error_output)
 
+    @unittest.skip
     def test_b0(self):
         """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: gitlog.txt"""
         files_required = ['gitlog.txt']
@@ -72,7 +73,8 @@ class lab0a(unittest.TestCase):
                 files_exist = False
         error_output = 'files for your github repo details cannot be found(HINT: make sure you have run git log and redirect their output to the appropriate file)',files_required
         self.assertTrue(files_exist, msg=error_output) 
-    
+
+    @unittest.skip
     def test_b1(self):
         """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: repo_tree.txt"""
         files_required = ['repo_tree.txt']
@@ -89,16 +91,16 @@ class lab0b(unittest.TestCase):
     @unittest.skip
     def test_c(self):
         """[Lab 1] - [Investigation 2] - [Part 1] - directories - Test for directory structure creation"""
-        dirs_required = ['~/ops435/lab1', 
-                         '~/ops435/lab2',
-                         '~/ops435/lab3',
-                         '~/ops435/lab4',
-                         '~/ops435/lab5',
-                         '~/ops435/lab6',
-                         '~/ops435/lab7',
-                         '~/ops435/lab8',
-                         '~/ops435/a1',
-                         '~/ops435/a2' ]
+        dirs_required = ['~/ops445/lab1', 
+                         '~/ops445/lab2',
+                         '~/ops445/lab3',
+                         '~/ops445/lab4',
+                         '~/ops445/lab5',
+                         '~/ops445/lab6',
+                         '~/ops445/lab7',
+                         '~/ops445/lab8',
+                         '~/ops445/a1',
+                         '~/ops445/a2' ]
         dirs_exist = True
         for d in dirs_required:
             if not os.path.isdir(os.path.expanduser(d)):
@@ -280,13 +282,13 @@ def CheckForUpdates():
         lab_name = 'CheckLab1.py'
         lab_num = 'lab1'
         print('Checking for updates...')
-        if ChecksumLatest(url='https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
+        if ChecksumLatest(url='https://ict.senecacollege.ca/~eric.brauer/ops445/labs/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
             print()
             print(' There is a update available for this' + lab_name + ' please consider updating:')
-            print(' cd ~/ops435/' + lab_num + '/')
+            print(' cd ~/ops445/' + lab_num + '/')
             print(' pwd  #   <-- i.e. confirm that you are in the correct directory')
             print(' rm ' + lab_name)
-            print(' ls ' + lab_name + ' || wget https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name)
+            print(' ls ' + lab_name + ' || wget https://ict.senecacollege.ca/~eric.brauer/ops445/labs/LabCheckScripts/' + lab_name)
             print()
             return
         print('Running latest version...')
