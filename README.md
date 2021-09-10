@@ -26,8 +26,6 @@ This will download Lab 1 locally, allowing you to work on your scripts and uploa
 ```bash
 git clone git@github.com:ops445/lab-1-yourgithubusername.git ~/ops445/lab1/
 ```
-You may continue to **Investigation 3** in the Lab 1 instructions posted on the [Wiki](https://wiki.cdot.senecacollege.ca/wiki/OPS435_Online_Lab1#Investigation_3_-_exploring_and_using_Python.27s_built-in_functions).
-
 # Submission
 When you have completed all sections of the lab, no submission to Blackboard is necessary. Complete the following steps:
 
