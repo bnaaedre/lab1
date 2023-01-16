@@ -52,7 +52,7 @@ if __name__ == '__main__':
     error_count = 0
 
     for sub_dir in dir_list:
-        sub_dir_path = base_dir + '/ops435/' + sub_dir
+        sub_dir_path = base_dir + '/ops445/' + sub_dir
         if os.path.isdir(sub_dir_path) == True:
             print('Subdirectory',sub_dir_path,'already exist, skipped.',file=sys.stderr)
             fail_count += 1
