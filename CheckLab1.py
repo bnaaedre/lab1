@@ -49,64 +49,6 @@ import urllib.request
 import socket
 import time 
 
-class lab0a(unittest.TestCase):
-    """All test cases for lab0a - clone of github repository."""
-    @unittest.skip
-    def test_a(self):
-        """[Lab 1] - [Investigation 1] - [Task 1] - github repository - Test for git clone"""
-        student_id = os.getlogin() 
-        dirs_required = ['~/ops445/lab1/'+student_id]
-        dirs_exist = True
-        for d in dirs_required:
-            if not os.path.isdir(os.path.expanduser(d)):
-                dirs_exist = False
-        error_output = 'your local git close directory cannot be found(HINT: make sure you have clone your github repository under the correct directory)',dirs_required
-        self.assertTrue(dirs_exist, msg=error_output)
-
-    @unittest.skip
-    def test_b0(self):
-        """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: gitlog.txt"""
-        files_required = ['gitlog.txt']
-        files_exist = True
-        for f in files_required:
-            if not os.path.isfile(os.path.expanduser(f)):
-                files_exist = False
-        error_output = 'files for your github repo details cannot be found(HINT: make sure you have run git log and redirect their output to the appropriate file)',files_required
-        self.assertTrue(files_exist, msg=error_output) 
-
-    @unittest.skip
-    def test_b1(self):
-        """[Lab 1] - [Investigation 1] - [Task 3] - github repo details: repo_tree.txt"""
-        files_required = ['repo_tree.txt']
-        files_exist = True
-        for f in files_required:
-            if not os.path.isfile(os.path.expanduser(f)):
-                files_exist = False
-        error_output = 'files for your github repo details cannot be found(HINT: make sure you have run tree -a and redirect their output to the appropriate file)',files_required    
-        self.assertTrue(files_exist, msg=error_output)
-
-class lab0b(unittest.TestCase):
-    """All test cases for lab0c - Directory structure."""
-    
-    @unittest.skip
-    def test_c(self):
-        """[Lab 1] - [Investigation 2] - [Part 1] - directories - Test for directory structure creation"""
-        dirs_required = ['~/ops445/lab1', 
-                         '~/ops445/lab2',
-                         '~/ops445/lab3',
-                         '~/ops445/lab4',
-                         '~/ops445/lab5',
-                         '~/ops445/lab6',
-                         '~/ops445/lab7',
-                         '~/ops445/lab8',
-                         '~/ops445/a1',
-                         '~/ops445/a2' ]
-        dirs_exist = True
-        for d in dirs_required:
-            if not os.path.isdir(os.path.expanduser(d)):
-                dirs_exist = False
-        error_output = 'your directory cannot be found(HINT: make sure you have created all the required directories)', dirs_required
-        self.assertTrue(dirs_exist, msg=error_output)
 
 
 class lab1a(unittest.TestCase):
