@@ -22,9 +22,10 @@ mv ~/ops445 ~/old_ops445
 ### Per-Lab Setup
 This will download Lab 1 locally, allowing you to work on your scripts and upload (push) them back up to GitHub.
 
-1. Clone your lab repository into your ~/ops445/lab1 directory using SSH:
+1. Click the green **Code** button at the top of this page. Select SSH and copy the address.
+2. Clone your lab repository into your ~/ops445/lab1 directory, using Ctrl+Shift+V to paste the address:
 ```bash
-git clone git@github.com:ops445/lab-1-yourgithubusername.git ~/ops445/lab1/
+git clone <pasted address> ~/ops445/lab1/
 ```
 # Submission
 When you have completed all sections of the lab, no submission to Blackboard is necessary. Complete the following steps:
