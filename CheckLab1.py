@@ -240,15 +240,25 @@ def CheckForUpdates():
         print('No connection made...')
         print('Skipping updates...')
         return
+
+def github_email():
+    cmd = 'git config --get user.email'
+    try:
+        out = os.popen(cmd).read().strip()
+    except:
+        out = 'none found'
+    return out
+
 def displayReportHeader():
-    report_heading = 'OPS435 Lab Report - System Information for running '+sys.argv[0]
+    report_heading = 'OPS445 Lab Report - System Information for running '+sys.argv[0]
     print(report_heading)
     print(len(report_heading) * '=')
-    print('    User login name:', os.getlogin())
+    import getpass
+    print('    User login name:', getpass.getuser())
+    print('    Git Email:', github_email())
     print('    Linux system name:', socket.gethostname())
-    print('    Linux system version:',os.popen('cat /etc/redhat-release').read().strip())
     print('    Python executable:',sys.executable)
-    print('    Python version: ',sys.version_info.major,sys.version_info.minor,sys.version_info.micro,sep='')
+    print('    Python version: ',sys.version)
     print('    OS Platform:',sys.platform)
     print('    Working Directory:',os.getcwd())
     print('    Start at:',time.asctime())
